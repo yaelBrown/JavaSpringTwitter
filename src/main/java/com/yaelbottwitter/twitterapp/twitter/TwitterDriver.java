@@ -14,9 +14,13 @@ public class TwitterDriver {
     public static void main(String[] args) throws TwitterException, IOException {
 
         Twitterer t = new Twitterer(consolePrint);
-        String message = "Message created in J4v4";
+        String message = "h3llo 4mb3r";
 
-        t.tweetOut(message);
+//        t.tweetOut(message);
+
+//        t.queryHandle("_yaelBrown");
+
+        t.saQuery("Software Developer");
     }
 
 }
