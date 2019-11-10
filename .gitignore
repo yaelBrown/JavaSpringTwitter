@@ -30,4 +30,7 @@ build/
 ### VS Code ###
 .vscode/
 
-### Node ###np
+### Node ###
+
+### Twitter4j ###
+/src/main/resources/twitter4j.properties
