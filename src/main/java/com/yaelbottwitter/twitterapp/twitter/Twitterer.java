@@ -102,4 +102,30 @@ public class Twitterer
         }
     }
 
+    /***
+     * Used for yaelBot application.
+     */
+    public void yaelBotQuery () {
+        statuses.clear();
+
+        Query q = new Query("#djyaelbot");
+
+        try {
+            QueryResult res = twitter.search(q);
+            q.setCount(100);
+            System.out.println("res.getCount() = " + res.getCount());
+
+            for (Status tweet: res.getTweets()) {
+                System.out.println("Tweet #" + 1 + ": @" + tweet.getUser().getName() + " tweeted: " + tweet.getText());
+            }
+
+        } catch(TwitterException e) {
+            e.printStackTrace();
+        } finally {
+            System.out.println();
+        }
+
+
+    }
+
 }

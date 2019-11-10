@@ -20,7 +20,10 @@ public class TwitterDriver {
 
 //        t.queryHandle("_yaelBrown");
 
-        t.saQuery("Software Developer");
+//        t.saQuery("#djyaelbot");
+
+        t.yaelBotQuery();
+
     }
 
 }
