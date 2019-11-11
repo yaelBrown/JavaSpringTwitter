@@ -20,6 +20,12 @@ public class Twitterer
     private Twitter twitter;
     private PrintStream consolePrint;
     private List<Status> statuses;
+    private List<Status> oldStatuses;
+
+    private List<YaelBotTweet> ybStatuses;
+    private List<YaelBotTweet> oldybStatuses;
+
+    private Status s;
 
 
     public Twitterer(PrintStream console)
@@ -29,6 +35,7 @@ public class Twitterer
         twitter = TwitterFactory.getSingleton();
         consolePrint = console;
         statuses = new ArrayList<Status>();
+        ybStatuses = new ArrayList<YaelBotTweet>();
     }
 
 
@@ -106,26 +113,40 @@ public class Twitterer
      * Used for yaelBot application.
      */
     public void yaelBotQuery () {
-        statuses.clear();
+        // move old data for comparison later
+        oldStatuses = statuses;
+        oldybStatuses = ybStatuses;
 
+        // Clear the statuses to get new ones
+        statuses.clear();
+        ybStatuses.clear();
+
+        // Define the query value
         Query q = new Query("#djyaelbot");
 
+        // Perform check of query
         try {
             QueryResult res = twitter.search(q);
             q.setCount(100);
-            System.out.println("res.getCount() = " + res.getCount());
+            System.out.println("Found " + res.getCount() + " tweets!");
 
+            int count = 0;
             for (Status tweet: res.getTweets()) {
-                System.out.println("Tweet #" + 1 + ": @" + tweet.getUser().getName() + " tweeted: " + tweet.getText());
+//                System.out.println("Tweet #" + 1 + ": @" + tweet.getUser().getName() + " tweeted: " + tweet.getText());
+                ybStatuses.add(count, new YaelBotTweet(tweet.getId(), tweet.getUser().getName(), tweet.getText(), tweet.getCreatedAt()));
+                count++;
             }
 
+            System.out.println("ybStatuses.toString() = " + ybStatuses.toString());
         } catch(TwitterException e) {
             e.printStackTrace();
         } finally {
             System.out.println();
         }
+    }
 
-
+    public static void yaelBotQueryApplication() {
+        System.out.println("YaelBot application started.");
     }
 
 }
